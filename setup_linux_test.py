@@ -14,7 +14,7 @@ import time
 
 LINUX_HOST = "192.168.100.50"
 LINUX_USER = "ubuntu"
-LINUX_PASS = ""
+LINUX_PASS = "admin"
 REMOTE_DIR = "/home/ubuntu/netmiko_test"
 NETMIKO_ROOT = r"I:\netmiko"
 VSCODE_DIR = os.path.join(NETMIKO_ROOT, ".vscode")
@@ -28,9 +28,9 @@ def exec_cmd(ssh, cmd, timeout=60):
     err = stderr.read().decode(errors="replace")
     rc = stdout.channel.recv_exit_status()
     if out.strip():
-        print(out.rstrip())
+        print(out.rstrip().encode("ascii", errors="replace").decode("ascii"))
     if err.strip() and rc != 0:
-        print(f"  [stderr] {err.rstrip()}")
+        print(f"  [stderr] {err.rstrip().encode('ascii', errors='replace').decode('ascii')}")
     return out, err, rc
 
 
@@ -134,6 +134,35 @@ def setup_linux(ssh):
     return poetry_bin
 
 
+def run_contributing_checks(ssh, poetry_bin):
+    """Run CONTRIBUTING.md required checks: black, pylama, mypy, unit tests."""
+    print()
+    print("=" * 60)
+    print("5. CONTRIBUTING.md Checks (black, pylama, mypy, unit tests)")
+    print("=" * 60)
+    cd = f"cd {REMOTE_DIR}"
+
+    checks = [
+        ("black --check .", f"{cd} && {poetry_bin} run black --check . 2>&1"),
+        ("pylama .", f"{cd} && {poetry_bin} run pylama . 2>&1"),
+        ("mypy netmiko/", f"{cd} && {poetry_bin} run mypy netmiko/ 2>&1"),
+        (
+            "py.test tests/unit/",
+            f"{cd} && PATH=$PATH:$HOME/.local/bin "
+            f"{poetry_bin} run py.test tests/unit/ -q 2>&1",
+        ),
+    ]
+    results = {}
+    for label, cmd in checks:
+        print()
+        print(f"  --- {label} ---")
+        out, err, rc = exec_cmd(ssh, cmd, timeout=180)
+        results[label] = (out, err, rc)
+        status = "PASS" if rc == 0 else "FAIL"
+        print(f"  Result: {status} (exit code {rc})")
+    return results
+
+
 def run_linux_suite(ssh, poetry_bin, test_device, test_file, label):
     """Run a single test suite on Linux. Return (output, returncode)."""
     print()
@@ -194,6 +223,9 @@ def main():
     ssh.connect(LINUX_HOST, username=LINUX_USER, password=LINUX_PASS, timeout=10)
     poetry_bin = setup_linux(ssh)
 
+    # --- CONTRIBUTING.md checks (run first) ---
+    run_contributing_checks(ssh, poetry_bin)
+
     suites = [
         ("Show Tests", "test_netmiko_show.py"),
         ("Config Tests", "test_netmiko_config.py"),
@@ -203,7 +235,7 @@ def main():
     # --- SSH tests (Linux -> FITELnet) ---
     print()
     print("=" * 60)
-    print("5. SSH Tests (Linux -> FITELnet)")
+    print("6. SSH Tests (Linux -> FITELnet)")
     print("=" * 60)
     run_linux_suite(ssh, poetry_bin, "furukawa_fitelnet",
                     "test_netmiko_autodetect.py", "Autodetect Test")
@@ -213,7 +245,7 @@ def main():
     # --- Telnet tests (Linux -> FITELnet) ---
     print()
     print("=" * 60)
-    print("6. Telnet Tests (Linux -> FITELnet)")
+    print("7. Telnet Tests (Linux -> FITELnet)")
     print("=" * 60)
     for label, test_file in suites:
         run_linux_suite(ssh, poetry_bin, "furukawa_fitelnet_telnet", test_file, label)
@@ -223,7 +255,7 @@ def main():
     # --- Serial tests (Windows COM4 -> FITELnet) ---
     print()
     print("=" * 60)
-    print("7. Serial Tests (Windows COM4 -> FITELnet)")
+    print("8. Serial Tests (Windows COM4 -> FITELnet)")
     print("=" * 60)
     setup_local_test_etc()
     for label, test_file in suites:

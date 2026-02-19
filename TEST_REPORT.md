@@ -4,6 +4,17 @@
 - Device: Furukawa FITELnet F220 (192.168.100.40)
 - Driver: `netmiko/furukawa/furukawa_fitelnet.py`
 - Test suite: netmiko official tests (`tests/test_netmiko_*.py`)
+- Test runner: `.vscode/setup_linux_test.py`
+
+## CONTRIBUTING.md Checks (Linux - Ubuntu 24.04, Python 3.12.3)
+
+| Check | Result |
+|---|---|
+| `poetry install` | PASS |
+| `black --check .` | PASS (284 files unchanged) |
+| `pylama .` | PASS (no errors) |
+| `mypy netmiko/` | PASS (no issues found in 250 source files) |
+| `py.test tests/unit/` | **89 passed, 0 failed** |
 
 ## Test Environment
 
@@ -17,7 +28,7 @@ Note: Serial tests run on Windows because the serial cable (USB-serial adapter)
 is physically connected to the Windows host. The Ubuntu machine is a Hyper-V VM
 and cannot access the host's USB serial port via passthrough.
 
-## Results Summary
+## Integration Test Results
 
 ### SSH (furukawa_fitelnet)
 
