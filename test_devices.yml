@@ -1,0 +1,24 @@
+---
+
+furukawa_fitelnet:
+  device_type: furukawa_fitelnet
+  ip: 192.168.100.40
+  username: operator
+  password: temp123
+  secret: ""
+
+furukawa_fitelnet_telnet:
+  device_type: furukawa_fitelnet_telnet
+  ip: 192.168.100.40
+  username: operator
+  password: temp123
+  secret: ""
+
+furukawa_fitelnet_serial:
+  device_type: furukawa_fitelnet_serial
+  username: operator
+  password: temp123
+  secret: ""
+  serial_settings:
+    port: "COM4"
+    baudrate: 9600

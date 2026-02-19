@@ -1,0 +1,507 @@
+============================================================
+1. Installing pip and poetry on Linux
+============================================================
+  $ echo admin | sudo -S apt-get update -qq 2>/dev/null && echo admin | sudo -S apt-get install -y -qq python3-pip python3-venv > /dev/null 2>&1 && echo 'apt install done'
+apt install done
+  $ pip3 install --user --break-system-packages poetry 2>/dev/null || pip3 install --user poetry 2>&1 | tail -3
+Requirement already satisfied: poetry in ./.local/lib/python3.12/site-packages (2.3.2)
+Requirement already satisfied: build<2.0.0,>=1.2.1 in ./.local/lib/python3.12/site-packages (from poetry) (1.4.0)
+Requirement already satisfied: cachecontrol<0.15.0,>=0.14.0 in ./.local/lib/python3.12/site-packages (from cachecontrol[filecache]<0.15.0,>=0.14.0->poetry) (0.14.4)
+Requirement already satisfied: cleo<3.0.0,>=2.1.0 in ./.local/lib/python3.12/site-packages (from poetry) (2.1.0)
+Requirement already satisfied: dulwich<2,>=0.25.0 in ./.local/lib/python3.12/site-packages (from poetry) (1.1.0)
+Requirement already satisfied: fastjsonschema<3.0.0,>=2.18.0 in ./.local/lib/python3.12/site-packages (from poetry) (2.21.2)
+Requirement already satisfied: findpython<0.8.0,>=0.6.2 in ./.local/lib/python3.12/site-packages (from poetry) (0.7.1)
+Requirement already satisfied: installer<0.8.0,>=0.7.0 in ./.local/lib/python3.12/site-packages (from poetry) (0.7.0)
+Requirement already satisfied: keyring<26.0.0,>=25.1.0 in ./.local/lib/python3.12/site-packages (from poetry) (25.7.0)
+Requirement already satisfied: packaging>=24.2 in ./.local/lib/python3.12/site-packages (from poetry) (26.0)
+Requirement already satisfied: pbs-installer>=2025.6.10 in ./.local/lib/python3.12/site-packages (from pbs-installer[download,install]>=2025.6.10->poetry) (2026.2.11)
+Requirement already satisfied: pkginfo<2.0,>=1.12 in ./.local/lib/python3.12/site-packages (from poetry) (1.12.1.2)
+Requirement already satisfied: platformdirs<5,>=3.0.0 in ./.local/lib/python3.12/site-packages (from poetry) (4.9.2)
+Requirement already satisfied: poetry-core==2.3.1 in ./.local/lib/python3.12/site-packages (from poetry) (2.3.1)
+Requirement already satisfied: pyproject-hooks<2.0.0,>=1.0.0 in ./.local/lib/python3.12/site-packages (from poetry) (1.2.0)
+Requirement already satisfied: requests<3.0,>=2.26 in /usr/lib/python3/dist-packages (from poetry) (2.31.0)
+Requirement already satisfied: requests-toolbelt<2.0.0,>=1.0.0 in ./.local/lib/python3.12/site-packages (from poetry) (1.0.0)
+Requirement already satisfied: shellingham<2.0,>=1.5 in ./.local/lib/python3.12/site-packages (from poetry) (1.5.4)
+Requirement already satisfied: tomlkit<1.0.0,>=0.11.4 in ./.local/lib/python3.12/site-packages (from poetry) (0.14.0)
+Requirement already satisfied: trove-classifiers>=2022.5.19 in ./.local/lib/python3.12/site-packages (from poetry) (2026.1.14.14)
+Requirement already satisfied: virtualenv>=20.26.6 in ./.local/lib/python3.12/site-packages (from poetry) (20.38.0)
+Requirement already satisfied: msgpack<2.0.0,>=0.5.2 in ./.local/lib/python3.12/site-packages (from cachecontrol<0.15.0,>=0.14.0->cachecontrol[filecache]<0.15.0,>=0.14.0->poetry) (1.1.2)
+Requirement already satisfied: filelock>=3.8.0 in ./.local/lib/python3.12/site-packages (from cachecontrol[filecache]<0.15.0,>=0.14.0->poetry) (3.24.3)
+Requirement already satisfied: crashtest<0.5.0,>=0.4.1 in ./.local/lib/python3.12/site-packages (from cleo<3.0.0,>=2.1.0->poetry) (0.4.1)
+Requirement already satisfied: rapidfuzz<4.0.0,>=3.0.0 in ./.local/lib/python3.12/site-packages (from cleo<3.0.0,>=2.1.0->poetry) (3.14.3)
+Requirement already satisfied: urllib3>=2.2.2 in ./.local/lib/python3.12/site-packages (from dulwich<2,>=0.25.0->poetry) (2.6.3)
+Requirement already satisfied: SecretStorage>=3.2 in ./.local/lib/python3.12/site-packages (from keyring<26.0.0,>=25.1.0->poetry) (3.5.0)
+Requirement already satisfied: jeepney>=0.4.2 in ./.local/lib/python3.12/site-packages (from keyring<26.0.0,>=25.1.0->poetry) (0.9.0)
+Requirement already satisfied: jaraco.classes in ./.local/lib/python3.12/site-packages (from keyring<26.0.0,>=25.1.0->poetry) (3.4.0)
+Requirement already satisfied: jaraco.functools in ./.local/lib/python3.12/site-packages (from keyring<26.0.0,>=25.1.0->poetry) (4.4.0)
+Requirement already satisfied: jaraco.context in ./.local/lib/python3.12/site-packages (from keyring<26.0.0,>=25.1.0->poetry) (6.1.0)
+Requirement already satisfied: httpx<1,>=0.27.0 in ./.local/lib/python3.12/site-packages (from pbs-installer[download,install]>=2025.6.10->poetry) (0.28.1)
+Requirement already satisfied: zstandard>=0.21.0 in ./.local/lib/python3.12/site-packages (from pbs-installer[download,install]>=2025.6.10->poetry) (0.25.0)
+Requirement already satisfied: distlib<1,>=0.3.7 in ./.local/lib/python3.12/site-packages (from virtualenv>=20.26.6->poetry) (0.4.0)
+Requirement already satisfied: anyio in ./.local/lib/python3.12/site-packages (from httpx<1,>=0.27.0->pbs-installer[download,install]>=2025.6.10->poetry) (4.12.1)
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from httpx<1,>=0.27.0->pbs-installer[download,install]>=2025.6.10->poetry) (2023.11.17)
+Requirement already satisfied: httpcore==1.* in ./.local/lib/python3.12/site-packages (from httpx<1,>=0.27.0->pbs-installer[download,install]>=2025.6.10->poetry) (1.0.9)
+Requirement already satisfied: idna in /usr/lib/python3/dist-packages (from httpx<1,>=0.27.0->pbs-installer[download,install]>=2025.6.10->poetry) (3.6)
+Requirement already satisfied: h11>=0.16 in ./.local/lib/python3.12/site-packages (from httpcore==1.*->httpx<1,>=0.27.0->pbs-installer[download,install]>=2025.6.10->poetry) (0.16.0)
+Requirement already satisfied: cryptography>=2.0 in /usr/lib/python3/dist-packages (from SecretStorage>=3.2->keyring<26.0.0,>=25.1.0->poetry) (41.0.7)
+Requirement already satisfied: more-itertools in ./.local/lib/python3.12/site-packages (from jaraco.classes->keyring<26.0.0,>=25.1.0->poetry) (10.8.0)
+Requirement already satisfied: typing_extensions>=4.5 in /usr/lib/python3/dist-packages (from anyio->httpx<1,>=0.27.0->pbs-installer[download,install]>=2025.6.10->poetry) (4.10.0)
+
+============================================================
+2. Copying netmiko source to Linux
+============================================================
+  $ rm -rf /home/ubuntu/netmiko_test
+  $ mkdir -p /home/ubuntu/netmiko_test
+  Copying netmiko/...
+  Copying tests/...
+  Copying pyproject.toml
+  Copying setup.cfg
+  Copying README.md
+  Copying LICENSE
+
+============================================================
+3. Creating test config files
+============================================================
+  Copied test_devices.yml -> tests/etc/test_devices.yml
+  Copied commands.yml -> tests/etc/commands.yml
+  Copied responses.yml -> tests/etc/responses.yml
+  Copied fitelnet_config.txt -> tests/etc/fitelnet_config.txt
+
+============================================================
+4. Installing netmiko dependencies
+============================================================
+  $ cd /home/ubuntu/netmiko_test && /home/ubuntu/.local/bin/poetry install 2>&1 | tail -5
+No dependencies to install or update
+
+Writing lock file
+
+Installing the current project: netmiko (4.6.1)
+
+============================================================
+5. SSH Tests (Linux -> FITELnet)
+============================================================
+
+----------------------------------------
+Autodetect Test (furukawa_fitelnet)
+----------------------------------------
+  $ cd /home/ubuntu/netmiko_test/tests && PYTHONPATH=/home/ubuntu/netmiko_test/tests /home/ubuntu/.local/bin/poetry run py.test -s -v test_netmiko_autodetect.py --test_device furukawa_fitelnet 2>&1
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.3.3, pluggy-1.6.0 -- /home/ubuntu/.cache/pypoetry/virtualenvs/netmiko-rBxuAoeU-py3.12/bin/python
+cachedir: .pytest_cache
+rootdir: /home/ubuntu/netmiko_test
+configfile: setup.cfg
+plugins: pylama-8.4.1
+collecting ... collected 1 item
+
+test_netmiko_autodetect.py::test_ssh_connect furukawa_fitelnet
+PASSED
+
+========================= 1 passed in 78.05s (0:01:18) =========================
+
+----------------------------------------
+Show Tests (furukawa_fitelnet)
+----------------------------------------
+  $ cd /home/ubuntu/netmiko_test/tests && PYTHONPATH=/home/ubuntu/netmiko_test/tests /home/ubuntu/.local/bin/poetry run py.test -s -v test_netmiko_show.py --test_device furukawa_fitelnet 2>&1
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.3.3, pluggy-1.6.0 -- /home/ubuntu/.cache/pypoetry/virtualenvs/netmiko-rBxuAoeU-py3.12/bin/python
+cachedir: .pytest_cache
+rootdir: /home/ubuntu/netmiko_test
+configfile: setup.cfg
+plugins: pylama-8.4.1
+collecting ... collected 25 items
+
+test_netmiko_show.py::test_failed_key SKIPPED (Not using SSH-keys)
+test_netmiko_show.py::test_disable_paging PASSED
+test_netmiko_show.py::test_terminal_width PASSED
+test_netmiko_show.py::test_ssh_connect PASSED
+test_netmiko_show.py::test_ssh_connect_cm PASSED
+test_netmiko_show.py::test_send_command_timing PASSED
+test_netmiko_show.py::test_send_command_timing_no_cmd_verify SKIPPED
+test_netmiko_show.py::test_send_command PASSED
+test_netmiko_show.py::test_send_command_no_cmd_verify SKIPPED
+test_netmiko_show.py::test_complete_on_space_disabled SKIPPED
+test_netmiko_show.py::test_send_command_textfsm SKIPPED (TextFSM/ntc...)
+test_netmiko_show.py::test_send_command_ttp SKIPPED (TTP template no...)
+test_netmiko_show.py::test_send_command_genie SKIPPED (Genie not sup...)
+test_netmiko_show.py::test_send_multiline_timing SKIPPED
+test_netmiko_show.py::test_send_multiline SKIPPED
+test_netmiko_show.py::test_send_multiline_prompt SKIPPED
+test_netmiko_show.py::test_send_multiline_simple SKIPPED
+test_netmiko_show.py::test_base_prompt PASSED
+test_netmiko_show.py::test_strip_prompt PASSED
+test_netmiko_show.py::test_strip_command PASSED
+test_netmiko_show.py::test_normalize_linefeeds PASSED
+test_netmiko_show.py::test_clear_buffer PASSED
+test_netmiko_show.py::test_enable_mode PASSED
+test_netmiko_show.py::test_disconnect PASSED
+test_netmiko_show.py::test_disconnect_no_enable SKIPPED
+
+=========================== short test summary info ============================
+SKIPPED [1] test_netmiko_show.py:25: Not using SSH-keys
+SKIPPED [1] test_netmiko_show.py:87: Skipped
+SKIPPED [1] test_netmiko_show.py:105: Skipped
+SKIPPED [1] test_netmiko_show.py:127: Skipped
+SKIPPED [1] test_netmiko_show.py:148: TextFSM/ntc-templates not supported on this platform
+SKIPPED [1] test_netmiko_show.py:170: TTP template not existing for this platform
+SKIPPED [1] test_netmiko_show.py:210: Genie not supported on this platform
+SKIPPED [1] test_netmiko_show.py:230: Skipped
+SKIPPED [1] test_netmiko_show.py:246: Skipped
+SKIPPED [1] test_netmiko_show.py:271: Skipped
+SKIPPED [1] test_netmiko_show.py:295: Skipped
+SKIPPED [1] test_netmiko_show.py:408: Skipped
+======================= 13 passed, 12 skipped in 25.06s ========================
+
+----------------------------------------
+Config Tests (furukawa_fitelnet)
+----------------------------------------
+  $ cd /home/ubuntu/netmiko_test/tests && PYTHONPATH=/home/ubuntu/netmiko_test/tests /home/ubuntu/.local/bin/poetry run py.test -s -v test_netmiko_config.py --test_device furukawa_fitelnet 2>&1
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.3.3, pluggy-1.6.0 -- /home/ubuntu/.cache/pypoetry/virtualenvs/netmiko-rBxuAoeU-py3.12/bin/python
+cachedir: .pytest_cache
+rootdir: /home/ubuntu/netmiko_test
+configfile: setup.cfg
+plugins: pylama-8.4.1
+collecting ... collected 13 items
+
+test_netmiko_config.py::test_ssh_connect PASSED
+test_netmiko_config.py::test_enable_mode PASSED
+test_netmiko_config.py::test_config_mode PASSED
+test_netmiko_config.py::test_exit_config_mode PASSED
+test_netmiko_config.py::test_config_set PASSED
+test_netmiko_config.py::test_config_set_generator PASSED
+test_netmiko_config.py::test_config_set_longcommand PASSED
+test_netmiko_config.py::test_config_hostname PASSED
+test_netmiko_config.py::test_config_from_file PASSED
+test_netmiko_config.py::test_config_error_pattern PASSED
+test_netmiko_config.py::test_banner SKIPPED (No banner defined.)
+test_netmiko_config.py::test_global_cmd_verify SKIPPED (No banner de...)
+test_netmiko_config.py::test_disconnect PASSED
+
+=========================== short test summary info ============================
+SKIPPED [1] test_netmiko_config.py:209: No banner defined.
+SKIPPED [1] test_netmiko_config.py:242: No banner defined.
+=================== 11 passed, 2 skipped in 69.13s (0:01:09) ===================
+
+----------------------------------------
+Save Tests (furukawa_fitelnet)
+----------------------------------------
+  $ cd /home/ubuntu/netmiko_test/tests && PYTHONPATH=/home/ubuntu/netmiko_test/tests /home/ubuntu/.local/bin/poetry run py.test -s -v test_netmiko_save.py --test_device furukawa_fitelnet 2>&1
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.3.3, pluggy-1.6.0 -- /home/ubuntu/.cache/pypoetry/virtualenvs/netmiko-rBxuAoeU-py3.12/bin/python
+cachedir: .pytest_cache
+rootdir: /home/ubuntu/netmiko_test
+configfile: setup.cfg
+plugins: pylama-8.4.1
+collecting ... collected 2 items
+
+test_netmiko_save.py::test_save_base PASSED
+test_netmiko_save.py::test_disconnect PASSED
+
+============================== 2 passed in 5.83s ===============================
+
+============================================================
+6. Telnet Tests (Linux -> FITELnet)
+============================================================
+
+----------------------------------------
+Show Tests (furukawa_fitelnet_telnet)
+----------------------------------------
+  $ cd /home/ubuntu/netmiko_test/tests && PYTHONPATH=/home/ubuntu/netmiko_test/tests /home/ubuntu/.local/bin/poetry run py.test -s -v test_netmiko_show.py --test_device furukawa_fitelnet_telnet 2>&1
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.3.3, pluggy-1.6.0 -- /home/ubuntu/.cache/pypoetry/virtualenvs/netmiko-rBxuAoeU-py3.12/bin/python
+cachedir: .pytest_cache
+rootdir: /home/ubuntu/netmiko_test
+configfile: setup.cfg
+plugins: pylama-8.4.1
+collecting ... collected 25 items
+
+test_netmiko_show.py::test_failed_key SKIPPED (Not using SSH-keys)
+test_netmiko_show.py::test_disable_paging PASSED
+test_netmiko_show.py::test_terminal_width PASSED
+test_netmiko_show.py::test_ssh_connect PASSED
+test_netmiko_show.py::test_ssh_connect_cm PASSED
+test_netmiko_show.py::test_send_command_timing PASSED
+test_netmiko_show.py::test_send_command_timing_no_cmd_verify SKIPPED
+test_netmiko_show.py::test_send_command PASSED
+test_netmiko_show.py::test_send_command_no_cmd_verify SKIPPED
+test_netmiko_show.py::test_complete_on_space_disabled SKIPPED
+test_netmiko_show.py::test_send_command_textfsm SKIPPED (TextFSM/ntc...)
+test_netmiko_show.py::test_send_command_ttp SKIPPED (TTP template no...)
+test_netmiko_show.py::test_send_command_genie SKIPPED (Genie not sup...)
+test_netmiko_show.py::test_send_multiline_timing SKIPPED
+test_netmiko_show.py::test_send_multiline SKIPPED
+test_netmiko_show.py::test_send_multiline_prompt SKIPPED
+test_netmiko_show.py::test_send_multiline_simple SKIPPED
+test_netmiko_show.py::test_base_prompt PASSED
+test_netmiko_show.py::test_strip_prompt PASSED
+test_netmiko_show.py::test_strip_command PASSED
+test_netmiko_show.py::test_normalize_linefeeds PASSED
+test_netmiko_show.py::test_clear_buffer PASSED
+test_netmiko_show.py::test_enable_mode PASSED
+test_netmiko_show.py::test_disconnect PASSED
+test_netmiko_show.py::test_disconnect_no_enable SKIPPED
+
+=========================== short test summary info ============================
+SKIPPED [1] test_netmiko_show.py:25: Not using SSH-keys
+SKIPPED [1] test_netmiko_show.py:87: Skipped
+SKIPPED [1] test_netmiko_show.py:105: Skipped
+SKIPPED [1] test_netmiko_show.py:127: Skipped
+SKIPPED [1] test_netmiko_show.py:148: TextFSM/ntc-templates not supported on this platform
+SKIPPED [1] test_netmiko_show.py:170: TTP template not existing for this platform
+SKIPPED [1] test_netmiko_show.py:210: Genie not supported on this platform
+SKIPPED [1] test_netmiko_show.py:230: Skipped
+SKIPPED [1] test_netmiko_show.py:246: Skipped
+SKIPPED [1] test_netmiko_show.py:271: Skipped
+SKIPPED [1] test_netmiko_show.py:295: Skipped
+SKIPPED [1] test_netmiko_show.py:408: Skipped
+======================= 13 passed, 12 skipped in 31.59s ========================
+
+----------------------------------------
+Config Tests (furukawa_fitelnet_telnet)
+----------------------------------------
+  $ cd /home/ubuntu/netmiko_test/tests && PYTHONPATH=/home/ubuntu/netmiko_test/tests /home/ubuntu/.local/bin/poetry run py.test -s -v test_netmiko_config.py --test_device furukawa_fitelnet_telnet 2>&1
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.3.3, pluggy-1.6.0 -- /home/ubuntu/.cache/pypoetry/virtualenvs/netmiko-rBxuAoeU-py3.12/bin/python
+cachedir: .pytest_cache
+rootdir: /home/ubuntu/netmiko_test
+configfile: setup.cfg
+plugins: pylama-8.4.1
+collecting ... collected 13 items
+
+test_netmiko_config.py::test_ssh_connect PASSED
+test_netmiko_config.py::test_enable_mode PASSED
+test_netmiko_config.py::test_config_mode PASSED
+test_netmiko_config.py::test_exit_config_mode PASSED
+test_netmiko_config.py::test_config_set PASSED
+test_netmiko_config.py::test_config_set_generator PASSED
+test_netmiko_config.py::test_config_set_longcommand PASSED
+test_netmiko_config.py::test_config_hostname PASSED
+test_netmiko_config.py::test_config_from_file PASSED
+test_netmiko_config.py::test_config_error_pattern PASSED
+test_netmiko_config.py::test_banner SKIPPED (No banner defined.)
+test_netmiko_config.py::test_global_cmd_verify SKIPPED (No banner de...)
+test_netmiko_config.py::test_disconnect PASSED
+
+=========================== short test summary info ============================
+SKIPPED [1] test_netmiko_config.py:209: No banner defined.
+SKIPPED [1] test_netmiko_config.py:242: No banner defined.
+=================== 11 passed, 2 skipped in 71.08s (0:01:11) ===================
+
+----------------------------------------
+Save Tests (furukawa_fitelnet_telnet)
+----------------------------------------
+  $ cd /home/ubuntu/netmiko_test/tests && PYTHONPATH=/home/ubuntu/netmiko_test/tests /home/ubuntu/.local/bin/poetry run py.test -s -v test_netmiko_save.py --test_device furukawa_fitelnet_telnet 2>&1
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.3.3, pluggy-1.6.0 -- /home/ubuntu/.cache/pypoetry/virtualenvs/netmiko-rBxuAoeU-py3.12/bin/python
+cachedir: .pytest_cache
+rootdir: /home/ubuntu/netmiko_test
+configfile: setup.cfg
+plugins: pylama-8.4.1
+collecting ... collected 2 items
+
+test_netmiko_save.py::test_save_base PASSED
+test_netmiko_save.py::test_disconnect PASSED
+
+============================== 2 passed in 8.22s ===============================
+
+============================================================
+7. Serial Tests (Windows COM4 -> FITELnet)
+============================================================
+
+----------------------------------------
+Show Tests (furukawa_fitelnet_serial)
+----------------------------------------
+  $ C:\Program Files\Python312\python.exe -m pytest -s -v I:\netmiko\tests\test_netmiko_show.py --test_device furukawa_fitelnet_serial
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.3.3, pluggy-1.6.0 -- C:\Program Files\Python312\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: I:\netmiko
+configfile: setup.cfg
+plugins: anyio-4.11.0, hypothesis-6.148.8, pylama-8.4.1, asyncio-0.24.0, cov-4.1.0
+asyncio: mode=Mode.STRICT, default_loop_scope=None
+collecting ... collected 25 items
+
+test_netmiko_show.py::test_failed_key SKIPPED (Not using SSH-keys)
+test_netmiko_show.py::test_disable_paging PASSED
+test_netmiko_show.py::test_terminal_width PASSED
+test_netmiko_show.py::test_ssh_connect PASSED
+test_netmiko_show.py::test_ssh_connect_cm ERROR
+test_netmiko_show.py::test_send_command_timing PASSED
+test_netmiko_show.py::test_send_command_timing_no_cmd_verify SKIPPED
+test_netmiko_show.py::test_send_command PASSED
+test_netmiko_show.py::test_send_command_no_cmd_verify SKIPPED
+test_netmiko_show.py::test_complete_on_space_disabled SKIPPED
+test_netmiko_show.py::test_send_command_textfsm SKIPPED (TextFSM/ntc...)
+test_netmiko_show.py::test_send_command_ttp SKIPPED (TTP template no...)
+test_netmiko_show.py::test_send_command_genie SKIPPED (Genie not sup...)
+test_netmiko_show.py::test_send_multiline_timing SKIPPED
+test_netmiko_show.py::test_send_multiline SKIPPED
+test_netmiko_show.py::test_send_multiline_prompt SKIPPED
+test_netmiko_show.py::test_send_multiline_simple SKIPPED
+test_netmiko_show.py::test_base_prompt PASSED
+test_netmiko_show.py::test_strip_prompt PASSED
+test_netmiko_show.py::test_strip_command PASSED
+test_netmiko_show.py::test_normalize_linefeeds PASSED
+test_netmiko_show.py::test_clear_buffer PASSED
+test_netmiko_show.py::test_enable_mode PASSED
+test_netmiko_show.py::test_disconnect PASSED
+test_netmiko_show.py::test_disconnect_no_enable SKIPPED
+
+=================================== ERRORS ====================================
+____________________ ERROR at setup of test_ssh_connect_cm ____________________
+
+request = <SubRequest 'net_connect_cm' for <Function test_ssh_connect_cm>>
+
+    @pytest.fixture()
+    def net_connect_cm(request):
+        """
+        Create the SSH connection to the remote device using a context manager
+        retrieve the find_prompt() data and close the connection.
+        """
+        device_under_test = request.config.getoption("test_device")
+        test_devices = parse_yaml(PWD + "/etc/test_devices.yml")
+        device = test_devices[device_under_test]
+        device["verbose"] = False
+        my_prompt = ""
+>       with ConnectHandler(**device) as conn:
+
+conftest.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\netmiko\ssh_dispatcher.py:482: in ConnectHandler
+    return ConnectionClass(*args, **kwargs)
+..\netmiko\base_connection.py:495: in __init__
+    self._open()
+..\netmiko\base_connection.py:500: in _open
+    self.establish_connection()
+..\netmiko\base_connection.py:1136: in establish_connection
+    self.remote_conn = serial.Serial(**self.serial_settings)
+C:\Users\admin\AppData\Roaming\Python\Python312\site-packages\serial\serialwin32.py:33: in __init__
+    super(Serial, self).__init__(*args, **kwargs)
+C:\Users\admin\AppData\Roaming\Python\Python312\site-packages\serial\serialutil.py:244: in __init__
+    self.open()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Serial<id=0x1bc0d692dd0, open=False>(port='COM4', baudrate=9600, bytesize=8, parity='N', stopbits=1, timeout=None, xonxoff=False, rtscts=False, dsrdtr=False)
+
+    def open(self):
+        """\
+        Open port with current settings. This may throw a SerialException
+        if the port cannot be opened.
+        """
+        if self._port is None:
+            raise SerialException("Port must be configured before it can be used.")
+        if self.is_open:
+            raise SerialException("Port is already open.")
+        # the "\\.\COMx" format is required for devices other than COM1-COM8
+        # not all versions of windows seem to support this properly
+        # so that the first few ports are used with the DOS device name
+        port = self.name
+        try:
+            if port.upper().startswith('COM') and int(port[3:]) > 8:
+                port = '\\\\.\\' + port
+        except ValueError:
+            # for like COMnotanumber
+            pass
+        self._port_handle = win32.CreateFile(
+            port,
+            win32.GENERIC_READ | win32.GENERIC_WRITE,
+            0,  # exclusive access
+            None,  # no security
+            win32.OPEN_EXISTING,
+            win32.FILE_ATTRIBUTE_NORMAL | win32.FILE_FLAG_OVERLAPPED,
+            0)
+        if self._port_handle == win32.INVALID_HANDLE_VALUE:
+            self._port_handle = None    # 'cause __del__ is called anyway
+>           raise SerialException("could not open port {!r}: {!r}".format(self.portstr, ctypes.WinError()))
+E           serial.serialutil.SerialException: could not open port 'COM4': PermissionError(13, 'アクセスが拒否されました。', None, 5)
+
+C:\Users\admin\AppData\Roaming\Python\Python312\site-packages\serial\serialwin32.py:64: SerialException
+=========================== short test summary info ===========================
+SKIPPED [1] test_netmiko_show.py:25: Not using SSH-keys
+SKIPPED [1] test_netmiko_show.py:87: Skipped
+SKIPPED [1] test_netmiko_show.py:105: Skipped
+SKIPPED [1] test_netmiko_show.py:127: Skipped
+SKIPPED [1] test_netmiko_show.py:148: TextFSM/ntc-templates not supported on this platform
+SKIPPED [1] test_netmiko_show.py:170: TTP template not existing for this platform
+SKIPPED [1] test_netmiko_show.py:210: Genie not supported on this platform
+SKIPPED [1] test_netmiko_show.py:230: Skipped
+SKIPPED [1] test_netmiko_show.py:246: Skipped
+SKIPPED [1] test_netmiko_show.py:271: Skipped
+SKIPPED [1] test_netmiko_show.py:295: Skipped
+SKIPPED [1] test_netmiko_show.py:408: Skipped
+================== 12 passed, 12 skipped, 1 error in 35.55s ===================
+C:\Users\admin\AppData\Roaming\Python\Python312\site-packages\pylama\lint\__init__.py:10: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import iter_entry_points
+C:\Users\admin\AppData\Roaming\Python\Python312\site-packages\pytest_asyncio\plugin.py:208: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+
+----------------------------------------
+Config Tests (furukawa_fitelnet_serial)
+----------------------------------------
+  $ C:\Program Files\Python312\python.exe -m pytest -s -v I:\netmiko\tests\test_netmiko_config.py --test_device furukawa_fitelnet_serial
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.3.3, pluggy-1.6.0 -- C:\Program Files\Python312\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: I:\netmiko
+configfile: setup.cfg
+plugins: anyio-4.11.0, hypothesis-6.148.8, pylama-8.4.1, asyncio-0.24.0, cov-4.1.0
+asyncio: mode=Mode.STRICT, default_loop_scope=None
+collecting ... collected 13 items
+
+test_netmiko_config.py::test_ssh_connect PASSED
+test_netmiko_config.py::test_enable_mode PASSED
+test_netmiko_config.py::test_config_mode PASSED
+test_netmiko_config.py::test_exit_config_mode PASSED
+test_netmiko_config.py::test_config_set PASSED
+test_netmiko_config.py::test_config_set_generator PASSED
+test_netmiko_config.py::test_config_set_longcommand PASSED
+test_netmiko_config.py::test_config_hostname PASSED
+test_netmiko_config.py::test_config_from_file PASSED
+test_netmiko_config.py::test_config_error_pattern PASSED
+test_netmiko_config.py::test_banner SKIPPED (No banner defined.)
+test_netmiko_config.py::test_global_cmd_verify SKIPPED (No banner de...)
+test_netmiko_config.py::test_disconnect PASSED
+
+=========================== short test summary info ===========================
+SKIPPED [1] test_netmiko_config.py:209: No banner defined.
+SKIPPED [1] test_netmiko_config.py:242: No banner defined.
+================== 11 passed, 2 skipped in 81.42s (0:01:21) ===================
+C:\Users\admin\AppData\Roaming\Python\Python312\site-packages\pylama\lint\__init__.py:10: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import iter_entry_points
+C:\Users\admin\AppData\Roaming\Python\Python312\site-packages\pytest_asyncio\plugin.py:208: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+
+----------------------------------------
+Save Tests (furukawa_fitelnet_serial)
+----------------------------------------
+  $ C:\Program Files\Python312\python.exe -m pytest -s -v I:\netmiko\tests\test_netmiko_save.py --test_device furukawa_fitelnet_serial
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.3.3, pluggy-1.6.0 -- C:\Program Files\Python312\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: I:\netmiko
+configfile: setup.cfg
+plugins: anyio-4.11.0, hypothesis-6.148.8, pylama-8.4.1, asyncio-0.24.0, cov-4.1.0
+asyncio: mode=Mode.STRICT, default_loop_scope=None
+collecting ... collected 2 items
+
+test_netmiko_save.py::test_save_base PASSED
+test_netmiko_save.py::test_disconnect PASSED
+
+============================= 2 passed in 10.47s ==============================
+C:\Users\admin\AppData\Roaming\Python\Python312\site-packages\pylama\lint\__init__.py:10: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import iter_entry_points
+C:\Users\admin\AppData\Roaming\Python\Python312\site-packages\pytest_asyncio\plugin.py:208: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+
+============================================================
+All tests completed!
+============================================================

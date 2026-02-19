@@ -1,0 +1,4 @@
+interface Loopback 1
+description netmiko-file-test
+exit
+commit

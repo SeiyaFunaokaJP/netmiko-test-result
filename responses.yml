@@ -1,0 +1,17 @@
+---
+
+furukawa_fitelnet: &fitelnet_responses
+  base_prompt: "#"
+  router_prompt: ">"
+  enable_prompt: "#"
+  interface_ip: "192.168.100.40"
+  version_banner: "present-side"
+  multiple_line_output: "interface"
+  cmd_response_init: "interface Loopback 1"
+  cmd_response_final: "description netmiko-test-final"
+  file_check_cmd: "description netmiko-file-test"
+  save_config: "save ok"
+
+furukawa_fitelnet_telnet: *fitelnet_responses
+
+furukawa_fitelnet_serial: *fitelnet_responses

@@ -1,0 +1,24 @@
+---
+
+furukawa_fitelnet: &fitelnet_commands
+  version: "show version"
+  basic: "show interface GigaEthernet 2/1"
+  extended_output: "show running.cfg"
+  config:
+    - "interface Loopback 1"
+    - "description netmiko-test-init"
+    - "exit"
+    - "interface Loopback 1"
+    - "description netmiko-test-final"
+    - "exit"
+  config_verification: "show running.cfg"
+  support_commit: True
+  config_file: "etc/fitelnet_config.txt"
+  error_pattern: "<ERROR>"
+  invalid_config: "invalid_command_xyz"
+  save_config_confirm: True
+  save_config_response: "save ok"
+
+furukawa_fitelnet_telnet: *fitelnet_commands
+
+furukawa_fitelnet_serial: *fitelnet_commands
